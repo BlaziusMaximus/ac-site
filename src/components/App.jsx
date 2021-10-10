@@ -19,8 +19,10 @@ const enableRotation = true;
 const allowMouseRotation = true;
 const allowKeyboardMotion = true;
 const enableForcePolyfill = false;
-// const SESSION_TYPE = "immersive-vr";
-const SESSION_TYPE = "inline";
+const SESSION_TYPES = {
+    "immersive-vr": "immersive-vr",
+    "inline": "inline",
+};
 const MOUSE_SPEED = 0.003;
 const MOVE_DISTANCE = 0.1;
 
@@ -396,14 +398,20 @@ class App extends React.Component {
 
     setupXRButton = () => {
         if (navigator.xr.isSessionSupported) {
-            navigator.xr.isSessionSupported(SESSION_TYPE)
+            navigator.xr.isSessionSupported(SESSION_TYPES['immersive-vr'])
                 .then((supported) => {
-                    this.setState({ xrDisabled: !supported });
+                    this.setState({
+                        xrDisabled: !supported
+                    }, () => {
+                        this.onXRButtonClick();
+                    });
                 });
         } else {
-            navigator.xr.supportsSession(SESSION_TYPE)
+            navigator.xr.supportsSession(SESSION_TYPES['immersive-vr'])
                 .then(() => {
-                    this.setState({ xrDisabled: false });
+                    this.setState({ xrDisabled: false }).then(() => {
+                        this.onXRButtonClick();
+                    });
                 })
                 .catch(() => {
                     this.setState({ xrDisabled: true });
@@ -415,12 +423,13 @@ class App extends React.Component {
         const {
             xrOn,
             xrSession,
+            xrDisabled,
         } = this.state;
 
         this.setState({ xrOn: !xrOn });
 
         if (!xrSession) {
-            navigator.xr.requestSession(SESSION_TYPE)
+            navigator.xr.requestSession(xrDisabled ? SESSION_TYPES['inline'] : SESSION_TYPES['immersive-vr'])
                 .then(this.sessionStarted);
         } else {
             await xrSession.end();
@@ -432,7 +441,10 @@ class App extends React.Component {
     }
 
     sessionStarted = (session) => {
-        const { canvasRef, } = this.state;
+        const {
+            canvasRef,
+            xrDisabled,
+        } = this.state;
 
         let refSpaceType;
 
@@ -475,7 +487,7 @@ class App extends React.Component {
             baseLayer: new XRWebGLLayer(_xrSession, _gl)
         });
 
-        if (SESSION_TYPE == "immersive-vr") {
+        if (!xrDisabled) {
             refSpaceType = "local";
         } else {
             refSpaceType = "viewer";
