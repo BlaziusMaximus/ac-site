@@ -3,16 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://blaziusmaximus.github.io/ac-site",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
     "start": "webpack-dev-server --mode=development",
-    "deploy": "npm run build && npm run git-commit && npm run git-push"
+    "deploy": "git add . && git commit && git push && gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ansi-regex": "^5.0.1",
+    "git-commit": "^0.0.3",
+    "git-push": "^0.1.1",
     "gl-matrix": "^3.4.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
