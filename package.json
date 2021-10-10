@@ -1,0 +1,37 @@
+{
+  "name": "webxr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production",
+    "start": "webpack-dev-server --mode=development",
+    "deploy": "npm run build && npm run git-commit && npm run git-push"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ansi-regex": "^5.0.1",
+    "gl-matrix": "^3.4.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webxr-polyfill": "^2.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "react-devtools": "^4.19.2",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
