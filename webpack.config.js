@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
     template: './src/index.html',
 });
@@ -40,5 +41,10 @@ module.exports = {
         filename: 'transformed.js',
         path: path.resolve(__dirname, 'build'),
     },
-    plugins: [ HTMLWebpackPluginConfig ]
+    plugins: [
+        HTMLWebpackPluginConfig,
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+    ]
 };
