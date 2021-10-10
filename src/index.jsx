@@ -1,9 +1,11 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './components/App';
 
 ReactDOM.render(
-    <App />,
+    <Router basename={process.env.PUBLIC_URL}>
+        <App />
+    </Router>,
     document.getElementById('app')
 );
