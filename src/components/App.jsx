@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { vec3, mat4, quat } from 'gl-matrix';
 
@@ -839,6 +840,7 @@ class App extends React.Component {
 
         return (
             <div>
+                {/* <Route exact path={'/'} render={(routerProps) => <div></div>} /> */}
                 <button
                     className="xrBtn"
                     onClick={async () => { await this.onXRButtonClick(); }}
